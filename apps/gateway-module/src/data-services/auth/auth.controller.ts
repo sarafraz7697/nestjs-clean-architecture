@@ -6,27 +6,35 @@ import {
   VerifyInDto,
   VerifyOutDto,
 } from '@libs/dto/gateways';
-import { Body, Controller, Global, Injectable, Post } from '@nestjs/common';
-import { AuthService } from './auth.service';
+import {
+  Body,
+  Controller,
+  Global,
+  Inject,
+  Injectable,
+  Post,
+} from '@nestjs/common';
+import { ClientProxy } from '@nestjs/microservices';
+import { firstValueFrom } from 'rxjs';
+import { AppController } from '../../common';
 
 @Injectable()
-@Controller('auth')
-@Global()
+@AppController('auth', { isProtected: true })
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(@Inject('AUTH_SERVICE') private client: ClientProxy) {}
 
   @Post('login')
-  login(@Body() data: LoginInDto): LoginOutDto {
-    return this.authService.login(data);
+  login(@Body() data: LoginInDto): Promise<LoginOutDto> {
+    return firstValueFrom(this.client.send('auth_login', data));
   }
 
   @Post('verify')
-  verify(@Body() data: VerifyInDto): VerifyOutDto {
-    return this.authService.verify(data);
+  verify(@Body() data: VerifyInDto): Promise<VerifyOutDto> {
+    return firstValueFrom(this.client.send('auth_verify', data));
   }
 
   @Post('refresh')
-  refresh(@Body() data: RefreshInDto): RefreshOutDto {
-    return this.authService.refresh(data);
+  refresh(@Body() data: RefreshInDto): Promise<RefreshOutDto> {
+    return firstValueFrom(this.client.send('auth_refresh', data));
   }
 }

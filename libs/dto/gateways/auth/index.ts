@@ -1,6 +1,7 @@
 export * from './login.dto.in';
 export * from './verify.dto.in';
 export * from './refresh.dto.in';
+export * from './verify-token.in';
 
 export * from './login.dto.out';
 export * from './verify.dto.out';
