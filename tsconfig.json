@@ -9,15 +9,25 @@
     "target": "ES2023",
     "sourceMap": true,
     "outDir": "./dist",
-    "baseUrl": "./src/",
+    "baseUrl": "./",
     "paths": {
-      "@configs/*": ["./configs/*"],
-      "@common/*": ["./common/*"],
-      "@constants/*": ["./constants/*"],
-      "@core/*": ["./core/*"],
-      "@end-points/*": ["./end-points/*"],
-      "@freamworks/*": ["./freamworks/*"],
-      "@use-cases/*": ["./use-cases/*"]
+      "@libs/*": ["libs/*"],
+      "@constants/*": ["libs/constants/*"],
+      "@common/*": ["libs/common/*"],
+      "@config/*": ["libs/config/*"],
+      "@utils/*": ["libs/utils/*"],
+      "@interfaces/*": ["libs/interfaces/*"],
+      "@dto/*": ["libs/dto/*"],
+      "@events/*": ["libs/events/*"],
+      "@entities/mongodb/repositories/*": [
+        "libs/entities/data-services/mongodb/*"
+      ],
+      "@entities/drizzle/repositories/*": [
+        "libs/entities/data-services/drizzle/*"
+      ],
+
+      "@drizzle/repositories/*": ["libs/freamworks/data-services/drizzle/*"],
+      "@mongodb/repositories/*": ["libs/freamworks/data-services/mongodb/*"]
     },
     "incremental": true,
     "skipLibCheck": true,
